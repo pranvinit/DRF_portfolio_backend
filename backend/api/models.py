@@ -57,4 +57,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+class Project(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+    detail = models.TextField(null=True, blank=True)
+    images = models.CharField(max_length=255, null=True, blank=True)
+    video = models.CharField(max_length=100, null=True, blank=True)
+    github = models.CharField(max_length=100)
+    hosted_on = models.CharField(max_length=100, null=True, blank=True)
+    infrastructure = models.CharField(max_length=255)
+    created_at = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.name
